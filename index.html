@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Diesel n' Steel — Sukli (Fare) Calcu n' Matrix</title>
+<title>Diesel n' Steel — Quick Fare & Sukli</title>
+<meta name="theme-color" content="#0d1117" />
 <style>
   :root{
-    --bg:#1e1f22; --card:#2b2d31; --text:#f2f3f5; --muted:#b5bac1; --line:#3f4147;
-    --accent:#5865f2; --accent2:#353a66; --good:#23a559; --bad:#f23f42; --warn:#f0b232;
-    --dark:#111214; --soft:#313338;
+    --bg:#0d1117; --card:#161b22; --text:#f0f6fc; --muted:#8b949e; --line:#30363d;
+    --accent:#2f81f7; --accent2:#1f3b5b; --good:#3fb950; --bad:#f85149; --warn:#d29922;
+    --dark:#010409; --soft:#21262d;
   }
   *{box-sizing:border-box}
   html{color-scheme:dark}
@@ -27,7 +28,7 @@
   .section-title{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:850;margin:0 0 9px}
   .route-buttons,.choice-grid{display:flex;flex-wrap:wrap;gap:8px}
   .choice{border:1px solid var(--line);background:var(--card);border-radius:11px;padding:10px 12px;font-weight:750;cursor:pointer;min-height:42px}
-  .choice:hover{border-color:#6d6f78;background:#35373c}.choice.selected{border-color:var(--accent);background:var(--accent2);color:#ffffff;box-shadow:0 0 0 1px var(--accent) inset}
+  .choice:hover{border-color:#8b949e;background:#21262d}.choice.selected{border-color:var(--accent);background:var(--accent2);color:#ffffff;box-shadow:0 0 0 1px var(--accent) inset}
   .choice.money{min-width:74px;font-size:18px}.choice.qty{min-width:52px;font-size:18px}
   .stop-wrap{display:grid;grid-template-columns:1fr 42px 1fr;gap:8px;align-items:end;margin-top:12px}
   .stop-col label{display:block;font-weight:800;font-size:13px;margin-bottom:6px}
@@ -45,8 +46,8 @@
   .table-scroll{overflow:auto;border:1px solid var(--line);border-radius:13px;background:var(--card)}
   table{width:100%;border-collapse:separate;border-spacing:0;min-width:760px}
   th,td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 9px;vertical-align:top}th:last-child,td:last-child{border-right:0}tr:last-child td{border-bottom:0}
-  thead th{position:sticky;top:0;background:#25272b;z-index:2;text-align:center;font-size:12px}.dest{position:sticky;left:0;background:var(--card);z-index:1;min-width:170px;font-weight:850}.fare{display:block;color:var(--muted);font-weight:750;font-size:11px;margin-top:3px}.cellline{font-size:12px;line-height:1.45;white-space:nowrap}.bill{font-weight:850}.reg{color:var(--text)}.disc{color:#ff6b6b;font-weight:850}.slash{color:#7d818a}.dash{color:#6d6f78}
-  .legend{display:flex;flex-wrap:wrap;gap:12px;margin:5px 0 12px;font-size:12px;color:var(--muted)}.legend b{color:var(--text)}.legend .d{color:#ff6b6b}
+  thead th{position:sticky;top:0;background:#161b22;z-index:2;text-align:center;font-size:12px}.dest{position:sticky;left:0;background:var(--card);z-index:1;min-width:170px;font-weight:850}.fare{display:block;color:var(--muted);font-weight:750;font-size:11px;margin-top:3px}.cellline{font-size:12px;line-height:1.45;white-space:nowrap}.bill{font-weight:850}.reg{color:var(--text)}.disc{color:#f85149;font-weight:850}.slash{color:#8b949e}.dash{color:#6e7681}
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin:5px 0 12px;font-size:12px;color:var(--muted)}.legend b{color:var(--text)}.legend .d{color:#f85149}
   .source{font-size:11px;color:var(--muted);margin:24px 2px 8px}.source a{color:var(--accent)}
   @media(max-width:800px){.app{padding:10px}.topbar{display:block}.version{display:inline-block;margin-top:8px}.pos-grid{grid-template-columns:1fr}.change-card{min-height:250px}.change{font-size:64px}.stop-wrap{grid-template-columns:1fr 38px 1fr}.choice{padding:9px 10px}.card{padding:12px}}
 </style>
