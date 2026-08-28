@@ -7,49 +7,54 @@
 <meta name="theme-color" content="#0d1117" />
 <style>
   :root{
-    --bg:#0d1117; --card:#161b22; --text:#f0f6fc; --muted:#8b949e; --line:#30363d;
-    --accent:#2f81f7; --accent2:#1f3b5b; --good:#3fb950; --bad:#f85149; --warn:#d29922;
+    --bg:#0d1117; --card:#161b22; --text:#b7c0ca; --muted:#8b949e; --line:#30363d;
+    --accent:#b1bac4; --accent2:#30363d; --good:#3fb950; --bad:#f85149; --warn:#d29922;
     --dark:#010409; --soft:#21262d;
   }
   *{box-sizing:border-box}
   html{color-scheme:dark}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-  button,select{font:inherit}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Mona Sans VF',-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji';font-size:14px;font-weight:400;line-height:1.5}
+  button,select{font:inherit;letter-spacing:0}
   .app{max-width:1280px;margin:0 auto;padding:18px}
   .topbar{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
-  h1{font-size:24px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px}
-  .version{font-size:12px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 10px;white-space:nowrap}
+  h1{font-size:24px;line-height:1.25;font-weight:600;margin:0 0 4px;letter-spacing:0}.sub{color:var(--muted);font-size:13px;line-height:1.5;font-weight:400}
+  .version{font-size:12px;font-weight:400;line-height:1.5;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 10px;white-space:nowrap}
   .tabs{display:flex;gap:8px;overflow:auto;padding-bottom:7px;margin-bottom:13px;position:sticky;top:0;z-index:20;background:linear-gradient(var(--bg) 75%,transparent)}
-  .tab{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:11px;padding:10px 14px;font-weight:750;cursor:pointer;white-space:nowrap}
-  .tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+  .tab{border:1px solid #30363d;background:#161b22;color:#b7c0ca;border-radius:11px;padding:10px 14px;font-weight:500;cursor:pointer;white-space:nowrap}
+  .tab.active{background:#30363d;border-color:#6e7681;color:#c9d1d9;box-shadow:0 0 0 1px rgba(110,118,129,.35) inset}
   .panel{display:none}.panel.active{display:block}
   .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
   .pos-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}
-  .section-title{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:850;margin:0 0 9px}
+  .section-title{font-size:12px;text-transform:none;letter-spacing:0;color:var(--muted);font-weight:600;line-height:1.5;margin:0 0 9px}
   .route-buttons,.choice-grid{display:flex;flex-wrap:wrap;gap:8px}
-  .choice{border:1px solid var(--line);background:var(--card);border-radius:11px;padding:10px 12px;font-weight:750;cursor:pointer;min-height:42px}
-  .choice:hover{border-color:#8b949e;background:#21262d}.choice.selected{border-color:var(--accent);background:var(--accent2);color:#ffffff;box-shadow:0 0 0 1px var(--accent) inset}
+  .choice{border:1px solid #30363d;background:#161b22;color:#b7c0ca;border-radius:11px;padding:10px 12px;font-weight:500;cursor:pointer;min-height:42px}
+  .choice:hover{border-color:#484f58;background:#21262d;color:#c9d1d9}.choice.selected{border-color:#6e7681;background:#30363d;color:#c9d1d9;box-shadow:0 0 0 1px rgba(110,118,129,.45) inset}
   .choice.money{min-width:74px;font-size:18px}.choice.qty{min-width:52px;font-size:18px}
   .stop-wrap{display:grid;grid-template-columns:1fr 42px 1fr;gap:8px;align-items:end;margin-top:12px}
-  .stop-col label{display:block;font-weight:800;font-size:13px;margin-bottom:6px}
-  select{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px 10px;background:var(--soft);font-weight:700;color:var(--text)}
+  .stop-col label{display:block;font-weight:600;font-size:13px;line-height:1.5;margin-bottom:6px}
+  select{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px 10px;background:var(--soft);font-weight:500;color:var(--text)}
   .swap{height:42px;border:1px solid var(--line);background:var(--soft);border-radius:10px;cursor:pointer;font-size:20px}
   .controls{display:grid;gap:13px;margin-top:15px}.control-block{padding-top:12px;border-top:1px solid var(--line)}
   .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
-  .mini{background:var(--soft);border-radius:11px;padding:10px;text-align:center}.mini span{display:block;color:var(--muted);font-size:11px;font-weight:750;text-transform:uppercase}.mini strong{font-size:19px}
+  .mini{background:var(--soft);border-radius:11px;padding:10px;text-align:center}.mini span{display:block;color:var(--muted);font-size:11px;font-weight:500;text-transform:none;letter-spacing:0}.mini strong{font-size:18px;line-height:1.25;font-weight:600}
   .change-card{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;min-height:410px}
-  .change-label{font-size:14px;font-weight:850;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}
-  .change{font-size:78px;font-weight:950;line-height:1;margin:14px 0 7px;letter-spacing:-.05em}.change.good{color:var(--good)}.change.bad{color:var(--bad)}
-  .change-note{color:var(--muted);font-size:14px;max-width:360px}.reset{margin-top:20px;border:0;background:var(--dark);color:#fff;border-radius:11px;padding:11px 18px;font-weight:800;cursor:pointer}
-  .route-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:10px}.route-heading h2{margin:0;font-size:21px}.hint{font-size:12px;color:var(--muted)}
-  .direction{margin:14px 0 24px}.direction h3{font-size:16px;margin:0 0 8px}.terminal-tag{color:var(--accent);font-weight:800}
+  .change-label{font-size:13px;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;line-height:1.5}
+  .change{font-size:72px;font-weight:600;line-height:1.05;margin:14px 0 7px;letter-spacing:0;font-variant-numeric:tabular-nums}.change.good{color:var(--good)}.change.bad{color:var(--bad)}
+  .change-note{color:var(--muted);font-size:14px;max-width:360px}.reset{margin-top:20px;border:1px solid #30363d;background:#161b22;color:#b7c0ca;border-radius:11px;padding:11px 18px;font-weight:500;cursor:pointer}
+  .route-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:10px}.route-heading h2{margin:0;font-size:20px;line-height:1.25;font-weight:600;letter-spacing:0}.hint{font-size:12px;color:var(--muted)}
+  .direction{margin:14px 0 24px}.direction h3{font-size:16px;line-height:1.25;font-weight:600;margin:0 0 8px}.terminal-tag{color:#b7c0ca;font-weight:800}
   .table-scroll{overflow:auto;border:1px solid var(--line);border-radius:13px;background:var(--card)}
-  table{width:100%;border-collapse:separate;border-spacing:0;min-width:760px}
-  th,td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 9px;vertical-align:top}th:last-child,td:last-child{border-right:0}tr:last-child td{border-bottom:0}
-  thead th{position:sticky;top:0;background:#161b22;z-index:2;text-align:center;font-size:12px}.dest{position:sticky;left:0;background:var(--card);z-index:1;min-width:170px;font-weight:850}.fare{display:block;color:var(--muted);font-weight:750;font-size:11px;margin-top:3px}.cellline{font-size:12px;line-height:1.45;white-space:nowrap}.bill{font-weight:850}.reg{color:var(--text)}.disc{color:#f85149;font-weight:850}.slash{color:#8b949e}.dash{color:#6e7681}
-  .legend{display:flex;flex-wrap:wrap;gap:12px;margin:5px 0 12px;font-size:12px;color:var(--muted)}.legend b{color:var(--text)}.legend .d{color:#f85149}
+  table{width:auto;border-collapse:separate;border-spacing:0;min-width:0;table-layout:auto}
+  th,td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px 8px;vertical-align:top}th:last-child,td:last-child{border-right:0}tr:last-child td{border-bottom:0}
+  thead th{position:sticky;top:0;background:#161b22;z-index:2;text-align:center;font-size:12px;font-weight:600;line-height:1.25}.dest{position:sticky;left:0;background:var(--card);z-index:1;width:150px;min-width:150px;max-width:150px;font-weight:850;white-space:normal;line-height:1.2}.fare{display:block;color:var(--muted);font-weight:500;font-size:11px;margin-top:3px}.cellline{font-size:12px;line-height:1.35;white-space:nowrap;font-variant-numeric:tabular-nums}.bill{font-weight:600}.reg{color:var(--good);font-weight:600}.disc{color:#f85149;font-weight:600}.slash{color:#8b949e}.dash{color:#6e7681}
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin:5px 0 12px;font-size:12px;line-height:1.5;color:var(--muted)}.legend b{color:var(--text);font-weight:600}.legend .d{color:#f85149}
   .source{font-size:11px;color:var(--muted);margin:24px 2px 8px}.source a{color:var(--accent)}
   @media(max-width:800px){.app{padding:10px}.topbar{display:block}.version{display:inline-block;margin-top:8px}.pos-grid{grid-template-columns:1fr}.change-card{min-height:250px}.change{font-size:64px}.stop-wrap{grid-template-columns:1fr 38px 1fr}.choice{padding:9px 10px}.card{padding:12px}}
+
+  .table-scroll table th:not(:first-child),.table-scroll table td:not(:first-child){width:118px;min-width:118px;max-width:118px}
+  .table-scroll thead th{padding:6px 7px}
+  .direction{margin:12px 0 20px}
+  .direction h3{margin-bottom:7px}
 </style>
 </head>
 <body>
@@ -167,7 +172,7 @@ function compactCell(regFare,discFare,qty){
 }
 function renderRoute(key){
   const r=ROUTES[key],el=document.getElementById(key);
-  el.innerHTML=`<div class="route-heading"><div><h2>${r.label}</h2><div class="hint">Black = regular change • <span style="color:#ff6b6b;font-weight:800">red = discounted change</span></div></div></div><div class="legend"><span>Cell format: <b>amount paid → regular change / <span class="d">discounted change</span></b></span><span>Impossible/insufficient bills are omitted.</span></div>`+
+  el.innerHTML=`<div class="route-heading"><div><h2>${r.label}</h2></div></div><div class="legend"><span>Cell format: <b>amount paid → <span style="color:#3fb950;font-weight:900">regular change</span> / <span class="d">discounted change</span></b></span><span>Impossible/insufficient bills are omitted.</span></div>`+
     makeDirectionTable(key,0,r.stops.length-1,r.terminalA)+makeDirectionTable(key,r.stops.length-1,0,r.terminalB);
 }
 function makeDirectionTable(key,startIdx,endIdx,terminalName){
