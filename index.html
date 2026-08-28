@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>dns sukli helper</title>
+<title>dns - sukli helper</title>
 <meta name="theme-color" content="#0d1117" />
 <style>
   :root{
@@ -41,19 +41,19 @@
   .change-label{font-size:13px;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;line-height:1.5}
   .change{font-size:72px;font-weight:600;line-height:1.05;margin:14px 0 7px;letter-spacing:0;font-variant-numeric:tabular-nums}.change.good{color:var(--good)}.change.bad{color:var(--bad)}
   .change-note{color:var(--muted);font-size:14px;max-width:360px}.reset{margin-top:20px;border:1px solid #30363d;background:#161b22;color:#b7c0ca;border-radius:11px;padding:11px 18px;font-weight:500;cursor:pointer}
-  .route-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:10px}.route-heading h2{margin:0;font-size:20px;line-height:1.25;font-weight:600;letter-spacing:0}.hint{font-size:12px;color:var(--muted)}
-  .direction{margin:14px 0 24px}.direction h3{font-size:16px;line-height:1.25;font-weight:600;margin:0 0 8px}.terminal-tag{color:#b7c0ca;font-weight:800}
+  .route-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:10px}.route-heading h2{margin:0;font-size:24px;line-height:1.25;font-weight:600;letter-spacing:0}.hint{font-size:14px;color:var(--muted)}
+  .direction{margin:14px 0 24px}.direction h3{font-size:19px;line-height:1.25;font-weight:600;margin:0 0 10px}.terminal-tag{color:#b7c0ca;font-weight:800}
   .table-scroll{overflow:auto;border:1px solid var(--line);border-radius:13px;background:var(--card);width:max-content;max-width:100%}
   table{width:auto;border-collapse:separate;border-spacing:0;min-width:0;table-layout:auto}
-  th,td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px 8px;vertical-align:top}th:last-child,td:last-child{border-right:0}tr:last-child td{border-bottom:0}
-  thead th{position:sticky;top:0;background:#161b22;z-index:2;text-align:center;font-size:12px;font-weight:600;line-height:1.25}.dest{position:sticky;left:0;background:var(--card);z-index:1;width:150px;min-width:150px;max-width:150px;font-weight:850;white-space:normal;line-height:1.2}.fare{display:block;color:var(--muted);font-weight:500;font-size:11px;margin-top:3px}.cellline{font-size:12px;line-height:1.35;white-space:nowrap;font-variant-numeric:tabular-nums}.bill{font-weight:600}.reg{color:var(--good);font-weight:600}.disc{color:#f85149;font-weight:600}.slash{color:#8b949e}.dash{color:#6e7681}
-  .legend{display:flex;flex-wrap:wrap;gap:12px;margin:5px 0 12px;font-size:12px;line-height:1.5;color:var(--muted)}.legend b{color:var(--text);font-weight:600}.legend .d{color:#f85149}
+  th,td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}th:last-child,td:last-child{border-right:0}tr:last-child td{border-bottom:0}
+  thead th{position:sticky;top:0;background:#161b22;z-index:2;text-align:center;font-size:14px;font-weight:600;line-height:1.3}.dest{position:sticky;left:0;background:var(--card);z-index:1;width:150px;min-width:150px;max-width:150px;font-weight:850;white-space:normal;line-height:1.2}.fare{display:block;color:var(--muted);font-weight:500;font-size:13px;margin-top:4px}.cellline{font-size:15px;line-height:1.4;white-space:nowrap;font-variant-numeric:tabular-nums}.bill{font-weight:600}.reg{color:var(--good);font-weight:600}.disc{color:#f85149;font-weight:600}.slash{color:#8b949e}.dash{color:#6e7681}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin:6px 0 16px;font-size:14px;line-height:1.5;color:var(--muted)}.legend b{color:var(--text);font-weight:600}.legend .d{color:#f85149}
   .source{font-size:11px;color:var(--muted);margin:24px 2px 8px}.source a{color:var(--accent)}
   @media(max-width:800px){.app{padding:10px}.topbar{display:block}.version{display:inline-block;margin-top:8px}.pos-grid{grid-template-columns:1fr}.change-card{min-height:250px}.change{font-size:64px}.stop-wrap{grid-template-columns:1fr 38px 1fr}.choice{padding:9px 10px}.card{padding:12px}}
 
-  .table-scroll table th:not(:first-child),.table-scroll table td:not(:first-child){width:118px;min-width:118px;max-width:118px}
-  .table-scroll thead th{padding:6px 7px}
-  .direction{margin:12px 0 20px}
+  .table-scroll table th:not(:first-child),.table-scroll table td:not(:first-child){width:145px;min-width:145px;max-width:145px}
+  .table-scroll thead th{padding:8px 9px}
+  .direction{margin:16px 0 28px}
   .direction h3{margin-bottom:7px}
 </style>
 </head>
