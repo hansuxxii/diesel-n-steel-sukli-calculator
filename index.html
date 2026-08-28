@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Diesel n' Steel — Quick Fare & Sukli</title>
+<style>
+  :root{
+    --bg:#1e1f22; --card:#2b2d31; --text:#f2f3f5; --muted:#b5bac1; --line:#3f4147;
+    --accent:#5865f2; --accent2:#353a66; --good:#23a559; --bad:#f23f42; --warn:#f0b232;
+    --dark:#111214; --soft:#313338;
+  }
+  *{box-sizing:border-box}
+  html{color-scheme:dark}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  button,select{font:inherit}
+  .app{max-width:1280px;margin:0 auto;padding:18px}
+  .topbar{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+  h1{font-size:24px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px}
+  .version{font-size:12px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 10px;white-space:nowrap}
+  .tabs{display:flex;gap:8px;overflow:auto;padding-bottom:7px;margin-bottom:13px;position:sticky;top:0;z-index:20;background:linear-gradient(var(--bg) 75%,transparent)}
+  .tab{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:11px;padding:10px 14px;font-weight:750;cursor:pointer;white-space:nowrap}
+  .tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+  .panel{display:none}.panel.active{display:block}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .pos-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}
+  .section-title{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:850;margin:0 0 9px}
+  .route-buttons,.choice-grid{display:flex;flex-wrap:wrap;gap:8px}
+  .choice{border:1px solid var(--line);background:var(--card);border-radius:11px;padding:10px 12px;font-weight:750;cursor:pointer;min-height:42px}
+  .choice:hover{border-color:#6d6f78;background:#35373c}.choice.selected{border-color:var(--accent);background:var(--accent2);color:#ffffff;box-shadow:0 0 0 1px var(--accent) inset}
+  .choice.money{min-width:74px;font-size:18px}.choice.qty{min-width:52px;font-size:18px}
+  .stop-wrap{display:grid;grid-template-columns:1fr 42px 1fr;gap:8px;align-items:end;margin-top:12px}
+  .stop-col label{display:block;font-weight:800;font-size:13px;margin-bottom:6px}
+  select{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px 10px;background:var(--soft);font-weight:700;color:var(--text)}
+  .swap{height:42px;border:1px solid var(--line);background:var(--soft);border-radius:10px;cursor:pointer;font-size:20px}
+  .controls{display:grid;gap:13px;margin-top:15px}.control-block{padding-top:12px;border-top:1px solid var(--line)}
+  .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+  .mini{background:var(--soft);border-radius:11px;padding:10px;text-align:center}.mini span{display:block;color:var(--muted);font-size:11px;font-weight:750;text-transform:uppercase}.mini strong{font-size:19px}
+  .change-card{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;min-height:410px}
+  .change-label{font-size:14px;font-weight:850;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}
+  .change{font-size:78px;font-weight:950;line-height:1;margin:14px 0 7px;letter-spacing:-.05em}.change.good{color:var(--good)}.change.bad{color:var(--bad)}
+  .change-note{color:var(--muted);font-size:14px;max-width:360px}.reset{margin-top:20px;border:0;background:var(--dark);color:#fff;border-radius:11px;padding:11px 18px;font-weight:800;cursor:pointer}
+  .route-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:10px}.route-heading h2{margin:0;font-size:21px}.hint{font-size:12px;color:var(--muted)}
+  .direction{margin:14px 0 24px}.direction h3{font-size:16px;margin:0 0 8px}.terminal-tag{color:var(--accent);font-weight:800}
+  .table-scroll{overflow:auto;border:1px solid var(--line);border-radius:13px;background:var(--card)}
+  table{width:100%;border-collapse:separate;border-spacing:0;min-width:760px}
+  th,td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 9px;vertical-align:top}th:last-child,td:last-child{border-right:0}tr:last-child td{border-bottom:0}
+  thead th{position:sticky;top:0;background:#25272b;z-index:2;text-align:center;font-size:12px}.dest{position:sticky;left:0;background:var(--card);z-index:1;min-width:170px;font-weight:850}.fare{display:block;color:var(--muted);font-weight:750;font-size:11px;margin-top:3px}.cellline{font-size:12px;line-height:1.45;white-space:nowrap}.bill{font-weight:850}.reg{color:var(--text)}.disc{color:#ff6b6b;font-weight:850}.slash{color:#7d818a}.dash{color:#6d6f78}
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin:5px 0 12px;font-size:12px;color:var(--muted)}.legend b{color:var(--text)}.legend .d{color:#ff6b6b}
+  .source{font-size:11px;color:var(--muted);margin:24px 2px 8px}.source a{color:var(--accent)}
+  @media(max-width:800px){.app{padding:10px}.topbar{display:block}.version{display:inline-block;margin-top:8px}.pos-grid{grid-template-columns:1fr}.change-card{min-height:250px}.change{font-size:64px}.stop-wrap{grid-template-columns:1fr 38px 1fr}.choice{padding:9px 10px}.card{padding:12px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div><h1>Diesel n' Steel — Quick Fare & Sukli</h1><div class="sub">Built for fast conductor gameplay: click, glance, give change.</div></div>
+    <div class="version">Fare data: Aug 19, 2026</div>
+  </div>
+
+  <nav class="tabs">
+    <button class="tab active" data-panel="pos">POS Calculator</button>
+    <button class="tab" data-panel="guiguinto">Guiguinto – Bulakan</button>
+    <button class="tab" data-panel="balagtas">Balagtas – Bulakan</button>
+    <button class="tab" data-panel="malolos">Malolos – Bulakan</button>
+  </nav>
+
+  <section id="pos" class="panel active">
+    <div class="pos-grid">
+      <div class="card">
+        <div class="section-title">1. Route</div>
+        <div class="route-buttons" id="routeButtons"></div>
+
+        <div class="stop-wrap">
+          <div class="stop-col"><label>Pickup</label><select id="pickup"></select></div>
+          <button class="swap" id="swap" title="Swap pickup and destination">⇄</button>
+          <div class="stop-col"><label>Destination</label><select id="dropoff"></select></div>
+        </div>
+
+        <div class="controls">
+          <div class="control-block"><div class="section-title">2. Fare type</div><div class="choice-grid" id="fareType"><button class="choice selected" data-value="regular">Regular</button><button class="choice" data-value="discounted">Discounted</button></div></div>
+          <div class="control-block"><div class="section-title">3. No. of passengers</div><div class="choice-grid" id="qtyButtons"></div></div>
+          <div class="control-block"><div class="section-title">4. Amount paid</div><div class="choice-grid" id="moneyButtons"></div></div>
+        </div>
+
+        <div class="summary">
+          <div class="mini"><span>Fare each</span><strong id="fareEach">₱13</strong></div>
+          <div class="mini"><span>Total fare</span><strong id="totalFare">₱13</strong></div>
+          <div class="mini"><span>Paid</span><strong id="paid">—</strong></div>
+        </div>
+      </div>
+      <div class="card change-card">
+        <div class="change-label">Give change</div>
+        <div id="change" class="change">—</div>
+        <div id="changeNote" class="change-note">Choose the NPC's bill. The sukli appears here immediately.</div>
+        <button id="reset" class="reset">Reset passenger</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="guiguinto" class="panel"></section>
+  <section id="balagtas" class="panel"></section>
+  <section id="malolos" class="panel"></section>
+
+  <div class="source">Sources: <a href="https://www.dieselnsteelfares.online/" target="_blank">Diesel N Steel Fare Calculator</a> (routes updated Aug 19, 2026) and <a href="https://aizen807.github.io/dns-fare-guide1/" target="_blank">Fare Matrix by Aizen</a>. Fare rule used: ₱13 regular / ₱11 discounted for 1–4 counted stops, then +₱2 per additional stop. Combined locations Bagumbayan/San Jose and San Juan/Sto. Rosario count as one stop.</div>
+</div>
+<script>
+const ROUTES = {
+  guiguinto:{label:'Guiguinto – Bulakan', short:'Guiguinto', stops:['Bagumbayan/San Jose','Matungao','Tuktukan'], terminalA:'Bulakan Terminal', terminalB:'Guiguinto Terminal'},
+  balagtas:{label:'Balagtas – Bulakan', short:'Balagtas', stops:['Bagumbayan/San Jose','Matungao','Panginay Guiguinto','Panginay Balagtas','Wawa'], terminalA:'Bulakan Terminal', terminalB:'Balagtas Terminal'},
+  malolos:{label:'Malolos – Bulakan', short:'Malolos', stops:['Bagumbayan/San Jose','Maysantol','San Nicolas','Pitpitan','Mambog','Matimbo','Panasahan','Bagna','Atlag','San Juan/Sto. Rosario'], terminalA:'Bulakan Terminal', terminalB:'Malolos Terminal'}
+};
+const BILLS=[20,50,100];
+let state={route:'malolos',fareType:'regular',qty:1,paid:null};
+
+function fareBetween(routeKey,a,b){
+  const s=ROUTES[routeKey].stops, i=s.indexOf(a), j=s.indexOf(b);
+  if(i<0||j<0||i===j) return null;
+  const counted=Math.abs(i-j)+1;
+  const regular=13+Math.max(0,counted-4)*2;
+  return {regular,discounted:regular-2,counted};
+}
+function peso(n){return '₱'+n.toLocaleString('en-PH')}
+
+function setupPOS(){
+  const rb=document.getElementById('routeButtons');
+  Object.entries(ROUTES).forEach(([k,r])=>{const b=document.createElement('button');b.className='choice'+(k===state.route?' selected':'');b.textContent=r.short;b.dataset.route=k;b.onclick=()=>{state.route=k;state.paid=null;document.querySelectorAll('#routeButtons .choice').forEach(x=>x.classList.toggle('selected',x===b));fillStops();updatePOS();};rb.appendChild(b)});
+  const q=document.getElementById('qtyButtons');for(let n=1;n<=5;n++){const b=document.createElement('button');b.className='choice qty'+(n===1?' selected':'');b.textContent=n;b.dataset.value=n;b.onclick=()=>{state.qty=n;selectWithin(q,b);state.paid=null;clearMoneySelection();updatePOS()};q.appendChild(b)}
+  const m=document.getElementById('moneyButtons');BILLS.forEach(v=>{const b=document.createElement('button');b.className='choice money';b.textContent=peso(v);b.dataset.value=v;b.onclick=()=>{state.paid=v;selectWithin(m,b);updatePOS()};m.appendChild(b)});
+  document.querySelectorAll('#fareType .choice').forEach(b=>b.onclick=()=>{state.fareType=b.dataset.value;selectWithin(document.getElementById('fareType'),b);state.paid=null;clearMoneySelection();updatePOS()});
+  document.getElementById('pickup').onchange=()=>{state.paid=null;clearMoneySelection();updatePOS()};
+  document.getElementById('dropoff').onchange=()=>{state.paid=null;clearMoneySelection();updatePOS()};
+  document.getElementById('swap').onclick=()=>{const p=document.getElementById('pickup'),d=document.getElementById('dropoff'),x=p.value;p.value=d.value;d.value=x;state.paid=null;clearMoneySelection();updatePOS()};
+  document.getElementById('reset').onclick=()=>{state.fareType='regular';state.qty=1;state.paid=null;document.querySelectorAll('#fareType .choice').forEach(b=>b.classList.toggle('selected',b.dataset.value==='regular'));document.querySelectorAll('#qtyButtons .choice').forEach(b=>b.classList.toggle('selected',b.dataset.value==='1'));clearMoneySelection();updatePOS()};
+  fillStops(); updatePOS();
+}
+function selectWithin(parent,b){parent.querySelectorAll('.choice').forEach(x=>x.classList.toggle('selected',x===b))}
+function clearMoneySelection(){document.querySelectorAll('#moneyButtons .choice').forEach(x=>x.classList.remove('selected'))}
+function fillStops(){
+  const r=ROUTES[state.route],p=document.getElementById('pickup'),d=document.getElementById('dropoff');p.innerHTML='';d.innerHTML='';
+  r.stops.forEach((s,i)=>{p.add(new Option(s,s));d.add(new Option(s,s));});p.value=r.stops[0];d.value=r.stops[r.stops.length-1];
+}
+function updatePOS(){
+  const p=document.getElementById('pickup').value,d=document.getElementById('dropoff').value,f= fareBetween(state.route,p,d);
+  const each=f?f[state.fareType]:0,total=each*state.qty;
+  document.getElementById('fareEach').textContent=f?peso(each):'—';document.getElementById('totalFare').textContent=f?peso(total):'—';document.getElementById('paid').textContent=state.paid?peso(state.paid):'—';
+  const c=document.getElementById('change'),note=document.getElementById('changeNote');c.className='change';
+  if(!f){c.textContent='—';note.textContent='Pickup and destination must be different.';return}
+  if(state.paid==null){c.textContent='—';note.textContent='Tap ₱20, ₱50, or ₱100 to show the change.';return}
+  const change=state.paid-total;
+  if(change<0){c.textContent=peso(Math.abs(change))+' short';c.classList.add('bad');note.textContent='The NPC bill is not enough for this group fare.'}
+  else {c.textContent=peso(change);c.classList.add('good');note.textContent=`${state.qty} ${state.fareType} passenger${state.qty>1?'s':''} • total ${peso(total)} • paid ${peso(state.paid)}`}
+}
+
+function compactCell(regFare,discFare,qty){
+  const tr=regFare*qty, td=discFare*qty;
+  const lines=[];
+  BILLS.forEach(b=>{
+    if(b>=tr || b>=td){
+      const r=b>=tr?(b-tr):null, d=b>=td?(b-td):null;
+      if(r===null && d===null)return;
+      lines.push(`<div class="cellline"><span class="bill">${b}</span> → <span class="reg">${r===null?'—':r}</span><span class="slash">/</span><span class="disc">${d===null?'—':d}</span></div>`)
+    }
+  });
+  return lines.length?lines.join(''):'<span class="dash">—</span>';
+}
+function renderRoute(key){
+  const r=ROUTES[key],el=document.getElementById(key);
+  el.innerHTML=`<div class="route-heading"><div><h2>${r.label}</h2><div class="hint">Black = regular change • <span style="color:#ff6b6b;font-weight:800">red = discounted change</span></div></div></div><div class="legend"><span>Cell format: <b>amount paid → regular change / <span class="d">discounted change</span></b></span><span>Impossible/insufficient bills are omitted.</span></div>`+
+    makeDirectionTable(key,0,r.stops.length-1,r.terminalA)+makeDirectionTable(key,r.stops.length-1,0,r.terminalB);
+}
+function makeDirectionTable(key,startIdx,endIdx,terminalName){
+  const r=ROUTES[key],step=startIdx<endIdx?1:-1, destinations=[];for(let i=startIdx+step; step>0?i<=endIdx:i>=endIdx;i+=step)destinations.push(r.stops[i]);
+  let rows='';destinations.forEach(dest=>{const f=fareBetween(key,r.stops[startIdx],dest);rows+=`<tr><td class="dest">${dest}<span class="fare">Fare ${peso(f.regular)} / ${peso(f.discounted)}</span></td>`;for(let q=1;q<=5;q++)rows+=`<td>${compactCell(f.regular,f.discounted,q)}</td>`;rows+='</tr>'});
+  return `<div class="direction"><h3>From <span class="terminal-tag">${terminalName}</span> → ${r.stops[endIdx]}</h3><div class="table-scroll"><table><thead><tr><th style="text-align:left">Destination</th><th>1 passenger</th><th>2 passengers</th><th>3 passengers</th><th>4 passengers</th><th>5 passengers</th></tr></thead><tbody>${rows}</tbody></table></div></div>`
+}
+
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===b.dataset.panel))});
+setupPOS();Object.keys(ROUTES).forEach(renderRoute);
+</script>
+</body>
+</html>
